@@ -1,4 +1,4 @@
-package local.leticia.airports.service;
+package local.leticia.airports.service; 
 
 import java.util.List;
 import local.leticia.airports.entities.Airport;
@@ -18,4 +18,10 @@ public class AirportService {
         return result;
         
     }
+    
+    public List<Airport> findByCity(String city) {
+    List<Airport> result = airportRepository.findByCityIgnoreCase(city);
+    return result;
 }
+}
+    
