@@ -1,6 +1,7 @@
 package local.leticia.airports.controllers;
 
 import java.util.List;
+import local.leticia.airports.DTO.AirportMinDTO;
 import local.leticia.airports.entities.Airport;
 import local.leticia.airports.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,18 @@ public class AirportController {
         }
         
   }
+    @GetMapping("/country/{countryName}")
+    public ResponseEntity<List<AirportMinDTO>> findByCountryIgnoreCase(@PathVariable String countryName){
+        List<AirportMinDTO> result = airportService.findByCountry(countryName);
+        
+        if(result.isEmpty()){
+            
+            return ResponseEntity.notFound().build();
+        
+        } else{
+        
+            return ResponseEntity.ok(result);
+        }
+    
+    }
 }
