@@ -2,7 +2,9 @@ package local.leticia.airports.service;
 
 import java.util.List;
 import local.leticia.airports.DTO.AirportMinDTO;
+import local.leticia.airports.DTO.AirportNearMeDTO;
 import local.leticia.airports.entities.Airport;
+import local.leticia.airports.projections.AirportNearMeProjection;
 import local.leticia.airports.repositories.AirportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,16 @@ public class AirportService {
         Airport result = airportRepository.findByIataCode(iataCode);
         return result;
     }
-    
+   
+    public List<AirportNearMeDTO> findNearMe(double latitude, double longitude) {
+    List<AirportNearMeProjection> resultNearAirports = airportRepository.findNearMe(latitude, longitude);
+
+    List<AirportNearMeDTO> resultDTO = resultNearAirports.stream()
+        .map(x -> new AirportNearMeDTO(x)).toList();
+
+    return resultDTO;
+}
+
 }
 
     
